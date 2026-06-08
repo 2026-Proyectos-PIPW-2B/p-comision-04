@@ -5,92 +5,95 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SebaMax Hardware</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 </head>
 <body>
     
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow">
-      <div class="container">
-        <a class="navbar-brand fw-bold" href="#"> SebaMax Hardware</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-success">
+    <div class="container">
 
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#menu"
-        >
-          <span class="navbar-toggler-icon"></span>
+        <a class="navbar-brand fw-bold text-success lh-1" href="#">
+            SEBAMAX<br>
+            HARDWARE
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSebamax">
+            <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="menu">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#inicio">Inicio</a>
-            </li>
+        <div class="collapse navbar-collapse" id="navbarSebamax">
 
-            <li class="nav-item">
-              <a class="nav-link" href="#speakers">Speakers</a>
-            </li>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Productos</a>
+                </li>
+            </ul>
 
-            <li class="nav-item">
-              <a class="nav-link" href="#agenda">Agenda</a>
-            </li>
+            <div class="d-flex align-items-center gap-3">
 
-            <li class="nav-item">
-              <a class="nav-link" href="#registro">Registro</a>
-            </li>
+                <button class="btn btn-outline-success">
+                    <i class="bi bi-cart3"></i>
+                </button>
 
-            <li class="nav-item">
-              <a class="nav-link" href="#footer">Contacto</a>
-            </li>
-            
-            <li class="nav-item"> 
-                    <button class="btn btn-primary"
-                            data-bs-toggle="modal"
-                            data-bs-target="#loginModal">
-                        Iniciar sesión
-                    </button>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-
-    <div class="modal fade" id="loginModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title">Iniciar sesión</h5>
-                    <button type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal">
-                    </button>
-                </div>
-
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label class="form-label">Usuario</label>
-                            <input type="text" class="form-control">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Contraseña</label>
-                            <input type="password" class="form-control">
-                        </div>
-
-                        <button type="submit" class="btn btn-primary">
-                            Ingresar
-                        </button>
-                    </form>
-                </div>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    Ingresar
+                </button>
 
             </div>
+
         </div>
     </div>
+</nav>
 
-    
+<div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-light border-success">
+
+            <div class="modal-header border-success">
+                <h5 class="modal-title text-success">
+                    Iniciar Sesión
+                </h5>
+
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <form>
+
+                    <div class="mb-3">
+                        <label for="usuario" class="form-label">
+                            Usuario
+                        </label>
+                        <input type="text"
+                               class="form-control bg-dark text-light border-secondary"
+                               id="usuario">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">
+                            Contraseña
+                        </label>
+                        <input type="password"
+                               class="form-control bg-dark text-light border-secondary"
+                               id="password">
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">
+                        Ingresar
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
 
     <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
