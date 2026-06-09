@@ -6,9 +6,10 @@
     --radio: 12px;
 }
 
+
 .productos {
     padding: 4rem 2rem;
-    background: var(--color-fondo);
+    background:#212529;
 }
 
 .contenedor {
@@ -30,8 +31,9 @@
 }
 
 .producto {
-    background: white;
+    background:lightskyblue;
     border-radius: var(--radio);
+    border: 2px solid lightcoral;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0,0,0,.1);
     transition: transform 0.3s ease,
@@ -65,7 +67,7 @@
     padding: 0.8rem;
     border: none;
     border-radius: 8px;
-    background: var(--color-principal);
+    background: rgb(75, 204, 75);
     color: white;
     cursor: pointer;
     transition: background 0.3s ease;
@@ -75,6 +77,6 @@
     background: var(--color-secundario);
 }
 
-button{
-    background-color: lightgreen;
+.producto img{
+    border-bottom: 2px solid black;
 }
