@@ -9,7 +9,7 @@
 
 .productos {
     padding: 4rem 2rem;
-    background:#212529;
+    background:white;
 }
 
 .contenedor {
@@ -80,3 +80,11 @@
 .producto img{
     border-bottom: 2px solid black;
 }
+
+.card-img-top{
+    height: 220px;      /* misma altura para todas */
+    width: 100%;
+    object-fit: contain; /* muestra la imagen completa */
+    background-color: #fff;
+    padding: 10px;
+}   
