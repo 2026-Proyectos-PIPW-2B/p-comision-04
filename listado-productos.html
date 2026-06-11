@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SebaMax Hardware</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <nav class="navbar navbar-expand navbar-dark fixed-top bg-dark border-bottom border-success">
+    <div class="container">
+
+        <a class="navbar-brand fw-bold text-success lh-1" href="index.html">
+            SEBAMAX<br>
+            HARDWARE
+        </a>
+
+        <div class="navbar-collapse">
+
+            <ul class="navbar-nav me-auto ms-lg-4">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Productos</a>
+                </li>
+            </ul>
+
+            <div class="d-flex align-items-center gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <a href="carrito.html" class="btn btn-outline-success">
+                        <i class="bi bi-cart3"></i>
+                    </a>
+
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <i class="bi bi-person"></i>
+                    Ingresar
+                </button>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+<main class="container py-5 mt-5 flex-grow-1">
+
+    <div class="row mb-4">
+        <div class="col">
+            <h1 class="text-success">Productos</h1>
+            <p class="text-secondary">
+                Explorá nuestro catálogo de hardware y periféricos.
+            </p>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+
+        <div class="col-md-6">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Buscar producto..."
+            >
+        </div>
+
+        <div class="col-md-6 mt-3 mt-md-0">
+            <select class="form-select">
+                <option selected>Todas las categorías</option>
+            </select>
+        </div>
+
+    </div>
+
+
+    <div id="contenedor-productos" class="row g-4">
+        <table class="table">
+            <thead>
+                <tr class="table-dark">
+                <th scope="col">#</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Descripción</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Imagen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                </tr>
+                <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>@fat</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                </tr>
+                <tr>
+                <th scope="row">3</th>
+                <td>John</td>
+                <td>Doe</td>
+                <td>@social</td>
+                <td>Otto</td>
+                <td>@mdo</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+
+
+
+<div class="modal fade" id="loginModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-light border-success">
+
+            <div class="modal-header border-success">
+                <h5 class="modal-title text-success">
+                    Iniciar Sesión
+                </h5>
+
+                <button type="button"
+                        class="btn-close btn-close-white"
+                        data-bs-dismiss="modal">
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <form>
+
+                    <div class="mb-3">
+                        <label for="usuario" class="form-label">
+                            Usuario
+                        </label>
+                        <input type="text"
+                               class="form-control bg-dark text-light border-secondary"
+                               id="usuario">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">
+                            Contraseña
+                        </label>
+                        <input type="password"
+                               class="form-control bg-dark text-light border-secondary"
+                               id="password">
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100">
+                        Ingresar
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<footer id="footer" class="bg-dark text-white py-4">
+    <div class="container">
+    <div class="row text-center text-md-start">
+        <div class="col-md-4 mb-3">
+        <h5>SEBAMAX Hardware</h5>
+
+        <p>La tienda N°1 en tecnología.</p>
+        </div>
+
+        <div class="col-md-4 mb-3">
+        <h5>Soporte</h5>
+
+        <ul class="list-unstyled">
+            <li>
+            <a href="#" class="text-white text-decoration-none">Garantía</a>
+            </li>
+            <li>
+            <a href="#" class="text-white text-decoration-none">Términos y condiciones.</a>
+            </li>
+            <li>
+            <a href="#" class="text-white text-decoration-none">Preguntas Frecuentes</a>
+            </li>
+        </ul>
+        </div>
+
+        <div class="col-md-4">
+        <h5>Redes</h5>
+
+        <div
+            class="d-flex gap-3 justify-content-center justify-content-md-start"
+        >
+            <i class="bi bi-instagram fs-4"></i>
+            <i class="bi bi-facebook fs-4"></i>
+            <i class="bi bi-twitter-x fs-4"></i>
+        </div>
+        </div>
+    </div>
+
+    <hr />
+
+    <p class="text-center mb-0">© 2026 SebaMax Gaming Hardware</p>
+    </div>
+</footer>
+
+<script src="https://unpkg.com/validator@latest/validator.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
