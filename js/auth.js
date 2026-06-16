@@ -122,6 +122,19 @@ function actualizarInterfaz() {
       elementosSoloConSesion[i].classList.remove("d-none");
     }
   }
+
+  const elementosSinSesion =
+    document.querySelectorAll("[data-no-auth]");
+
+  for (let i = 0; i < elementosSinSesion.length; i++) {
+
+    if (sesion === null) {
+        elementosSinSesion[i].classList.remove("d-none");
+    } else {
+        elementosSinSesion[i].classList.add("d-none");
+    }
+
+  }
 }
 
 function configurarFormularioLogin() {

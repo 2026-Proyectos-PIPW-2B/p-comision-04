@@ -77,95 +77,15 @@
                 <thead class="table-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Stock</th>
-                        <th scope="col">Imagen</th>
+                        <th scope="col" class="text-center">Nombre</th>
+                        <th scope="col" class="text-center">Descripción</th>
+                        <th scope="col" class="text-center">Precio</th>
+                        <th scope="col" class="text-center">Stock</th>
+                        <th scope="col" class="text-center">Imagen</th>
                         <th scope="col" class="d-none" data-admin-only>Acciones</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Zowie XL2546</td>
-                        <td>Monitor 240Hz 24.5"</td>
-                        <td>$450.000</td>
-                        <td><span class="badge bg-success">En stock</span></td>
-                        <td><img src="img/240.webp" alt="" class="img-fluid produ-img" alt=""></td>
-                        <td class="d-none" data-admin-only>
-                            <button class="btn btn-sm btn-outline-warning me-1">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Monitor Samsung Curvo</td>
-                        <td>Odyssey Ark 55" 4K Mini-LED</td>
-                        <td>$1.200.000</td>
-                        <td><span class="badge bg-success">En stock</span></td>
-                        <td><img src="img/curvo.webp" class="img-fluid produ-img" alt=""></td>
-                        <td class="d-none" data-admin-only>
-                            <button class="btn btn-sm btn-outline-warning me-1">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Auriculares HyperX</td>
-                        <td>Compatibles PC, PS5, Xbox, Switch</td>
-                        <td>$85.000</td>
-                        <td><span class="badge bg-warning text-dark">Últimas unidades</span></td>
-                        <td><img src="img/Auris.webp" class="img-fluid produ-img" alt=""></td>
-                        <td class="d-none" data-admin-only>
-                            <button class="btn btn-sm btn-outline-warning me-1">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">4</th>
-                        <td>Razer Deathadder v3 Pro</td>
-                        <td>Mouse inalámbrico gaming</td>
-                        <td>$120.000</td>
-                        <td><span class="badge bg-success">En stock</span></td>
-                        <td><img src="img/mouse.webp" class="img-fluid produ-img" alt=""></td>
-                        <td class="d-none" data-admin-only>
-                            <button class="btn btn-sm btn-outline-warning me-1">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">5</th>
-                        <td>MSI 5080 White</td>
-                        <td>RTX 5080 White Edition</td>
-                        <td>$2.800.000</td>
-                        <td><span class="badge bg-danger">Sin stock</span></td>
-                        <td><img src="img/aorus.webp" class="img-fluid produ-img" alt=""></td>
-                        <td class="d-none" data-admin-only>
-                            <button class="btn btn-sm btn-outline-warning me-1">
-                                <i class="bi bi-pencil"></i>
-                            </button>
-                            <button class="btn btn-sm btn-outline-danger">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </td>
-                    </tr>
+                <tbody id="tablaProductos">
                 </tbody>
             </table>
         </div>
@@ -240,6 +160,7 @@
 
 <script src="https://unpkg.com/validator@latest/validator.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/productos.js"></script>
 <script src="js/auth.js"></script>
 </body>
 </html>
