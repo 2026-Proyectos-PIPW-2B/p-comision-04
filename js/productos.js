@@ -185,9 +185,6 @@ function mostrarProductos() {
         `;
     }
 
-    if (typeof actualizarInterfaz === "function") {
-        actualizarInterfaz();
-    }
 }
 
 function guardarProductos(productos) {
