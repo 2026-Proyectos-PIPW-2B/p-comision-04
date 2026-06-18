@@ -237,6 +237,7 @@ function mostrarProductosInicio() {
 
                             <button
                                 class="btn btn-success"
+                                onclick="agregarAlCarrito(${producto.id})"
                             >
                                 Agregar al carrito
                             </button>
@@ -268,6 +269,49 @@ function guardarProductos(productos) {
         JSON.stringify(productos)
     );
 
+}
+
+function agregarAlCarrito(idProducto) {
+
+    let carrito =
+        JSON.parse(
+            localStorage.getItem("carrito")
+        );
+
+    if (carrito === null) {
+        carrito = [];
+    }
+
+    const productos =
+        obtenerProductos();
+
+    let productoSeleccionado =
+        null;
+
+    for (let i = 0; i < productos.length; i++) {
+
+        if (productos[i].id === idProducto) {
+
+            productoSeleccionado =
+                productos[i];
+
+            break;
+        }
+    }
+
+    if (productoSeleccionado !== null) {
+
+        carrito.push(productoSeleccionado);
+
+        localStorage.setItem(
+            "carrito",
+            JSON.stringify(carrito)
+        );
+
+        mostrarMensaje(
+            "Producto agregado al carrito"
+        );
+    }
 }
 
 document.addEventListener(
