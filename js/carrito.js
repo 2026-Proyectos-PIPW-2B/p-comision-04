@@ -51,15 +51,6 @@ function agregarAlCarrito(idProducto) {
     carrito.push(producto);
 
     guardarCarrito(carrito);
-
-    if (
-        typeof mostrarMensaje ===
-        "function"
-    ) {
-        mostrarMensaje(
-            "Producto agregado al carrito"
-        );
-    }
 }
 
 function mostrarCarrito() {
