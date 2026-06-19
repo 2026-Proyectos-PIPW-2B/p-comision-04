@@ -1,3 +1,14 @@
+export function cachito(){
+  return esAdministrador()
+
+}//
+export function cachito1(){
+  obtenerSesion()
+
+}
+
+import {mostrarProductosInicioImportada as mostrarProductosInicioImportada} from "./productos.js";
+
 const CLAVE_SESION = "sebamax_session";
 
 const LISTA_USUARIOS = [
@@ -37,6 +48,7 @@ function esAdministrador() {
   }
 
   if (sesion.rol === "admin") {
+   
     return true;
   }
 
@@ -100,6 +112,8 @@ function actualizarInterfaz() {
         botonSalir.addEventListener("click", cerrarSesion);
       }
     }
+
+    mostrarProductosInicioImportada()
   }
 
   const elementosSoloAdmin = document.querySelectorAll("[data-admin-only]");
