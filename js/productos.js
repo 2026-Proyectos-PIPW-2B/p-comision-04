@@ -1,10 +1,10 @@
 //import {obtenerSesion} from ".js/auth.js";
 //import {cachito1 as  obtenerSesion} from "./auth.js";
-import {cachito as ALGO} from "./auth.js";
+import {cachito as ALGO} from "./modulos/auth.js";
 
-export function mostrarProductosInicioImportada(){
-  return mostrarProductosInicio()
-
+export{
+  inicializarProductos,
+  mostrarProductosInicio
 }
 
 
