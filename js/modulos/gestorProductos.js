@@ -1,3 +1,7 @@
+import { guardarDato, obtenerDato } from "./gestorBD.js";
+
+const PRODUCTOS_KEY = "productos";
+
 const PRODUCTOS_INICIALES = [
     {
         id: 1,
@@ -54,8 +58,7 @@ const PRODUCTOS_INICIALES = [
         precio: 1500000,
         stock: 3,
         imagen: "img/ventus.webp"
-    }
-    ,
+    },
     {
         id: 8,
         nombre: "MSI Prime 5080",
@@ -66,18 +69,46 @@ const PRODUCTOS_INICIALES = [
     }
 ];
 
-export function listarProductos(){
-    return PRODUCTOS_INICIALES
+export {inicializarProductos,listarProductos,obtenerProductoPorId,agregarProducto,eliminarProducto};
+
+function inicializarProductos() {
+    const productosGuardados = obtenerDato(PRODUCTOS_KEY);
+    if (productosGuardados === null) {
+        guardarDato(PRODUCTOS_KEY, PRODUCTOS_INICIALES);
+    }
 }
 
-export function altaProducto(){
-
+function listarProductos() {
+    const productosGuardados = obtenerDato(PRODUCTOS_KEY);
+    if (productosGuardados === null) {
+        return [];
+    }
+    return productosGuardados;
 }
 
-export function eliminarProducto(){
-
+function obtenerProductoPorId(id) {
+    const productos = listarProductos();
+    for (let i = 0; i < productos.length; i++) {
+        if (productos[i].id === id) {
+            return productos[i];
+        }
+    }
+    return null;
 }
 
-export function editarProducto(){
+function agregarProducto(productoNuevo) {
+    const productos = listarProductos();
+    productos.push(productoNuevo);
+    guardarDato(PRODUCTOS_KEY, productos);
+}
 
+function eliminarProducto(id) {
+    const productos = listarProductos();
+    const nuevosProductos = [];
+    for (let i = 0; i < productos.length; i++) {
+        if (productos[i].id !== id) {
+            nuevosProductos.push(productos[i]);
+        }
+    }
+    guardarDato(PRODUCTOS_KEY, nuevosProductos);
 }
