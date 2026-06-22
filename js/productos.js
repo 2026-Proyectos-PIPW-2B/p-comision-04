@@ -1,3 +1,13 @@
+//import {obtenerSesion} from ".js/auth.js";
+//import {cachito1 as  obtenerSesion} from "./auth.js";
+import {cachito as ALGO} from "./modulos/auth.js";
+
+export{
+  inicializarProductos,
+  mostrarProductosInicio
+}
+
+
 const PRODUCTOS_INICIALES = [
     {
         id: 1,
@@ -200,13 +210,21 @@ function mostrarProductosInicio() {
         obtenerProductos();
 
     contenedor.innerHTML = "";
-
+    
+    const esAdmin= ALGO()
+    const btnAdmin=`<button
+                              class="btn btn-warning btn-sm"
+                                data-admin-only="true"
+                            >
+                                <i class="bi bi-pencil-fill"></i>
+                                Editar producto
+                            </button>`
     for (let i = 0; i < productos.length; i++) {
 
         const producto =
             productos[i];
 
-        contenedor.innerHTML += `
+                contenedor.innerHTML += `
             <div class="col-12 col-md-6 col-lg-3">
 
                 <div class="card h-100 bg-dark text-light border-success">
@@ -242,13 +260,7 @@ function mostrarProductosInicio() {
                                 Agregar al carrito
                             </button>
 
-                            <button
-                                class="btn btn-warning btn-sm d-none"
-                                data-admin-only
-                            >
-                                <i class="bi bi-pencil-fill"></i>
-                                Editar producto
-                            </button>
+                            ${esAdmin? btnAdmin:""}
 
                         </div>
 
@@ -256,8 +268,8 @@ function mostrarProductosInicio() {
 
                 </div>
 
-            </div>
-        `;
+            </div>`;
+            
     }
 
 }

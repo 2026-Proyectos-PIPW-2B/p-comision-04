@@ -1,3 +1,9 @@
+export function cachito(){
+  return esAdministrador()
+}
+
+import {mostrarProductosInicio} from "../productos.js";
+
 const CLAVE_SESION = "sebamax_session";
 
 const LISTA_USUARIOS = [
@@ -37,6 +43,7 @@ function esAdministrador() {
   }
 
   if (sesion.rol === "admin") {
+   
     return true;
   }
 
@@ -100,6 +107,8 @@ function actualizarInterfaz() {
         botonSalir.addEventListener("click", cerrarSesion);
       }
     }
+
+    mostrarProductosInicio  ()
   }
 
   const elementosSoloAdmin = document.querySelectorAll("[data-admin-only]");
@@ -240,6 +249,6 @@ function mostrarMensaje(mensaje, tipo) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  actualizarInterfaz();
-  configurarFormularioLogin();
+  //actualizarInterfaz();
+  //configurarFormularioLogin();
 });
