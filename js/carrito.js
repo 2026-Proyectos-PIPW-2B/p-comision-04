@@ -32,23 +32,25 @@ function guardarCarrito(carrito) {
 }
 
 function agregarAlCarrito(idProducto) {
+    const productos = obtenerProductos();
+    const carrito = obtenerCarrito();
 
-    const productos =
-        obtenerProductos();
+    const producto = productos.find(
+        p => p.id === idProducto
+    );
 
-    const carrito =
-        obtenerCarrito();
+    if (!producto) return;
 
-    const producto =
-        productos.find(
-            p => p.id === idProducto
-        );
+    const productoEnCarrito = carrito.find(p => p.id === idProducto);
 
-    if (producto === undefined) {
-        return;
+    if (productoEnCarrito) {
+        productoEnCarrito.cantidad++;
+    } else {
+        carrito.push({
+            ...producto,
+            cantidad: 1 
+        });
     }
-
-    carrito.push(producto);
 
     guardarCarrito(carrito);
 }
@@ -76,6 +78,7 @@ function mostrarCarrito() {
         obtenerCarrito();
 
     let totalCompra = 0;
+    let totalProductos = 0;
 
     contenedor.innerHTML = "";
 
@@ -84,9 +87,8 @@ function mostrarCarrito() {
         const producto =
             carrito[i];
 
-        totalCompra +=
-            producto.precio;
-
+        totalCompra += producto.precio * producto.cantidad;
+        totalProductos += producto.cantidad;
         contenedor.innerHTML += `
             <div class="card mb-3">
                 <div class="card-body">
@@ -94,34 +96,42 @@ function mostrarCarrito() {
                     <div class="row align-items-center">
 
                         <div class="col-3">
-                            <img
-                                src="${producto.imagen}"
-                                class="img-carrito"
-                            >
+                            <img src="${producto.imagen}" class="img-carrito">
                         </div>
 
                         <div class="col">
-                            <h5>
-                                ${producto.nombre}
-                            </h5>
+                            <h5>${producto.nombre}</h5>
+                            <p>${producto.descripcion}</p>
 
-                            <p>
-                                ${producto.descripcion}
-                            </p>
+                            <div class="d-flex align-items-center gap-2">
+                                <button class="btn btn-sm btn-outline-secondary"
+                                    onclick="disminuirCantidad(${producto.id})">-</button>
+
+                                <span>${producto.cantidad}</span>
+
+                                <button class="btn btn-sm btn-outline-secondary"
+                                    onclick="aumentarCantidad(${producto.id})">+</button>
+                            </div>
                         </div>
 
-                        <div class="col-auto">
+                        <div class="col-auto text-end">
                             <strong>
-                                $${producto.precio.toLocaleString("es-AR")}
+                                $${(producto.precio * producto.cantidad).toLocaleString("es-AR")}
                             </strong>
+
+                            <br>
+
+                            <button class="btn btn-sm btn-danger mt-2"
+                                onclick="eliminarProducto(${producto.id})">
+                                Eliminar
+                            </button>
                         </div>
 
                     </div>
 
                 </div>
             </div>
-        `;
-    }
+        `;}
 
         resumen.innerHTML = `
             <h3 class="mb-4">
@@ -130,7 +140,7 @@ function mostrarCarrito() {
 
             <div class="d-flex justify-content-between mb-3">
                 <span>
-                    ${carrito.length} producto(s)
+                    ${totalProductos} producto(s)
                 </span>
             </div>
 
@@ -160,6 +170,42 @@ function mostrarCarrito() {
 
             </div>
         `;
+}
+
+function aumentarCantidad(idProducto) {
+    const carrito = obtenerCarrito();
+
+    const producto = carrito.find(p => p.id === idProducto);
+    if (producto) {
+        producto.cantidad++;
+    }
+
+    guardarCarrito(carrito);
+    mostrarCarrito();
+}
+
+function disminuirCantidad(idProducto) {
+    const carrito = obtenerCarrito();
+
+    const producto = carrito.find(p => p.id === idProducto);
+
+    if (producto && producto.cantidad > 1) {
+        producto.cantidad--;
+    }
+
+    guardarCarrito(carrito);
+    mostrarCarrito();
+}
+
+function eliminarProducto(idProducto) {
+    let carrito = obtenerCarrito();
+
+    carrito = carrito.filter(
+        p => p.id !== idProducto
+    );
+
+    guardarCarrito(carrito);
+    mostrarCarrito();
 }
 
 document.addEventListener(
