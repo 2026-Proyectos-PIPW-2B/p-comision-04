@@ -79,6 +79,7 @@ function mostrarCarrito() {
             </button>
             <a href="listado-productos.html" class="btn btn-outline-success">Ver más productos</a>
         </div>`;
+    configurarEventosCarrito();
 }
 
 function configurarEventosCarrito() {
@@ -87,31 +88,30 @@ function configurarEventosCarrito() {
         return;
     }
 
-    contenedor.addEventListener("click", function (evento) {
-        const boton = evento.target.closest("button[name]");
-        if (!boton) {
-            return;
-        }
-
-        const id = Number(boton.value);
-        const accion = boton.name;
-
-        if (accion === "disminuir") {
+    const botonesDisminuir = contenedor.querySelectorAll("button[name='disminuir']");
+    for (let i = 0; i < botonesDisminuir.length; i++) {
+        botonesDisminuir[i].onclick = function () {
+            const id = Number(this.value);
             actualizarCantidadDelCarrito(id, -1);
             mostrarCarrito();
-            return;
-        }
+        };
+    }
 
-        if (accion === "aumentar") {
+    const botonesAumentar = contenedor.querySelectorAll("button[name='aumentar']");
+    for (let i = 0; i < botonesAumentar.length; i++) {
+        botonesAumentar[i].onclick = function () {
+            const id = Number(this.value);
             actualizarCantidadDelCarrito(id, 1);
             mostrarCarrito();
-            return;
-        }
+        };
+    }
 
-        if (accion === "eliminar") {
+    const botonesEliminar = contenedor.getElementsByName("eliminar");
+    for (let i = 0; i < botonesEliminar.length; i++) {
+        botonesEliminar[i].onclick = function () {
+            const id = Number(this.value);
             eliminarDelCarrito(id);
             mostrarCarrito();
-            return;
-        }
-    });
+        };
+    }
 }
