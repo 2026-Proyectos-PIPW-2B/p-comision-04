@@ -36,3 +36,10 @@ tr{
     display: block;
     margin: 0 auto;
 }
+.img-index-verMas{
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
