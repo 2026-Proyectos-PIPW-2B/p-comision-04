@@ -7,10 +7,57 @@ window.onload = function () {
     configurarFormularioLogin();
     window.refrescarTablaProductos = mostrarProductos;
     mostrarProductos();
+    configurarFiltros();
 };
 
-function mostrarProductos() {
+function configurarFiltros() {
+    const inputBusqueda = document.getElementById("buscarProducto");
+    const selectCategoria = document.querySelector("select");
+
+    if (inputBusqueda !== null) {
+        inputBusqueda.addEventListener("input", mostrarProductos);
+    }
+
+    if (selectCategoria !== null) {
+        selectCategoria.addEventListener("change", mostrarProductos);
+    }
+}
+
+function obtenerProductosFiltrados() {
     const productos = listarProductos();
+    const inputBusqueda = document.getElementById("buscarProducto");
+    const selectCategoria = document.querySelector("select");
+
+    let busqueda = "";
+    let categoriaFiltro = "";
+
+    if (inputBusqueda !== null) {
+        busqueda = inputBusqueda.value.toLowerCase();
+    }
+
+    if (selectCategoria !== null) {
+        categoriaFiltro = selectCategoria.value;
+    }
+
+    const productosFiltrados = [];
+
+    for (let i = 0; i < productos.length; i++) {
+        const producto = productos[i];
+        
+        const cumpleBusqueda =producto.nombre.toLowerCase().includes(busqueda) || producto.descripcion.toLowerCase().includes(busqueda);
+        
+        const cumpleCategoria =categoriaFiltro === "Todas las categorías" || producto.categoria === categoriaFiltro;
+
+        if (cumpleBusqueda && cumpleCategoria) {
+            productosFiltrados.push(producto);
+        }
+    }
+
+    return productosFiltrados;
+}
+
+function mostrarProductos() {
+    const productos = obtenerProductosFiltrados();
     const esAdmin = esAdministrador();
     renderizarTablaProductos(productos, esAdmin);
     configurarEventosTabla();
@@ -26,8 +73,8 @@ function renderizarTablaProductos(productos, esAdmin) {
 
     for (let i = 0; i < productos.length; i++) {
         const producto = productos[i];
+        let botonesAdmin = "";
 
-        let botonesAdmin= "";
         if (esAdmin) {
             botonesAdmin = `
                 <td>
@@ -56,29 +103,19 @@ function renderizarTablaProductos(productos, esAdmin) {
 }
 
 function configurarEventosTabla() {
-
     const botonesEliminar = document.getElementsByName("eliminar");
-
     for (let i = 0; i < botonesEliminar.length; i++) {
-
         botonesEliminar[i].onclick = function () {
-
             const id = Number(this.value);
-
             eliminarProducto(id);
-
             mostrarProductos();
         };
     }
 
     const botonesEditar = document.getElementsByName("editar");
-
     for (let i = 0; i < botonesEditar.length; i++) {
-
         botonesEditar[i].onclick = function () {
-
             const id = Number(this.value);
-
             alert("Editar producto " + id);
         };
     }

@@ -9,7 +9,8 @@ const PRODUCTOS_INICIALES = [
         descripcion: "Monitor Gamer 24,5 pulgadas",
         precio: 800000,
         stock: 3,
-        imagen: "img/240.webp"
+        imagen: "img/240.webp",
+        categoria: "Monitores"
     },
     {
         id: 2,
@@ -17,7 +18,8 @@ const PRODUCTOS_INICIALES = [
         descripcion: "Odyssey Ark 55\" 4K Mini-LED",
         precio: 1200000,
         stock: 5,
-        imagen: "img/curvo.webp"
+        imagen: "img/curvo.webp",
+        categoria: "Monitores"
     },
     {
         id: 3,
@@ -25,7 +27,8 @@ const PRODUCTOS_INICIALES = [
         descripcion: "Compatibles PC, PS5, Xbox, Switch",
         precio: 85000,
         stock: 8,
-        imagen: "img/Auris.webp"
+        imagen: "img/Auris.webp",
+        categoria: "Periféricos"
     },
     {
         id: 4,
@@ -33,7 +36,8 @@ const PRODUCTOS_INICIALES = [
         descripcion: "Mouse inalámbrico gaming",
         precio: 120000,
         stock: 15,
-        imagen: "img/mouse.webp"
+        imagen: "img/mouse.webp",
+        categoria: "Periféricos"
     },
     {
         id: 5,
@@ -41,7 +45,8 @@ const PRODUCTOS_INICIALES = [
         descripcion: "RTX 5080 White Edition",
         precio: 2800000,
         stock: 1,
-        imagen: "img/aorus.webp"
+        imagen: "img/aorus.webp",
+        categoria: "Placas de video"
     },
     {
         id: 6,
@@ -49,7 +54,8 @@ const PRODUCTOS_INICIALES = [
         descripcion: "Ventus 5070 Ti 8GB",
         precio: 1500000,
         stock: 2,
-        imagen: "img/ventus5070.webp"
+        imagen: "img/ventus5070.webp",
+        categoria: "Placas de video"
     },
     {
         id: 7,
@@ -57,7 +63,8 @@ const PRODUCTOS_INICIALES = [
         descripcion: "Asus Prime 5070 Ti 8GB",
         precio: 1500000,
         stock: 3,
-        imagen: "img/ventus.webp"
+        imagen: "img/ventus.webp",
+        categoria: "Placas de video"
     },
     {
         id: 8,
@@ -65,7 +72,8 @@ const PRODUCTOS_INICIALES = [
         descripcion: "MSI Prime 5080 8GB",
         precio: 1500000,
         stock: 4,
-        imagen: "img/msiplaca.webp"
+        imagen: "img/msiplaca.webp",
+        categoria: "Placas de video"
     }
 ];
 
