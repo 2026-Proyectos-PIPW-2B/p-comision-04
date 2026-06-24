@@ -1,6 +1,6 @@
 import {inicializarProductos, listarProductos} from "./modulos/gestorProductos.js";
 import {actualizarInterfaz, configurarFormularioLogin, esAdministrador} from "./modulos/gestorAuth.js";
-import {inicializarCarrito, agregarAlCarrito} from "./modulos/gestorCarrito.js";
+import {agregarAlCarrito} from "./modulos/gestorCarrito.js";
 
 window.onload = function () {
     inicializarProductos();
@@ -19,9 +19,6 @@ function mostrarProductos() {
 
 function renderizarTablaProductos(productos, esAdmin) {
     const contenedor = document.getElementById("contenedorProductos");
-    if (contenedor === null) {
-        return;
-    }
 
     contenedor.innerHTML = "";
 
