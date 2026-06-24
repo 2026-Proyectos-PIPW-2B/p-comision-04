@@ -21,7 +21,7 @@
                     <a class="nav-link" href="listado-productos.html">Productos</a>
                 </li>
 
-                <li class="nav-item d-none" data-admin-only>
+                <li class="nav-item d-none soloAdmin">
                     <a class="nav-link text-warning" href="#">
                         <i class="bi bi-gear-fill"></i> Panel Admin
                     </a>
@@ -32,7 +32,7 @@
                 <a href="carrito.html" class="btn btn-outline-success">
                     <i class="bi bi-cart3"></i>
                 </a>
-                <div data-auth-container class="d-flex align-items-center gap-2">
+                <div id="contenedorBtnIngresar" class="d-flex align-items-center gap-2">
                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal">
                         <i class="bi bi-person"></i> Ingresar
                     </button>
