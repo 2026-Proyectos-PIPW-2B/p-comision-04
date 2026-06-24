@@ -38,12 +38,12 @@ function iniciarSesion(nombreUsuario, clave) {
 
     if (usuarioActual.nombreUsuario === nombreUsuario && usuarioActual.clave === clave) {
       usuarioEncontrado = usuarioActual;
-      break;
+        break;
+      }
     }
-  }
 
-  if (usuarioEncontrado === null) {
-    return false;
+    if (usuarioEncontrado === null) {
+      return false;
   }
 
   guardarSesion(usuarioEncontrado);
@@ -94,13 +94,12 @@ function actualizarInterfaz() {
     }
   }
 
-  const elementosSinSesion = document.querySelectorAll("[data-no-auth]");
-
-  for (let i = 0; i < elementosSinSesion.length; i++) {
+  const elementosSinSesion = document.getElementById("authWarning")
+  if (elementosSinSesion !== null) {
     if (sesion === null) {
-      elementosSinSesion[i].classList.remove("d-none");
+      elementosSinSesion.classList.remove("d-none");
     } else {
-      elementosSinSesion[i].classList.add("d-none");
+      elementosSinSesion.classList.add("d-none");
     }
   }
 }
