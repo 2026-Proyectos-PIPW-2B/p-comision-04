@@ -1,4 +1,4 @@
-export {iniciarSesion,cerrarSesion,obtenerSesion,esAdministrador,actualizarInterfaz,configurarFormularioLogin}
+export {iniciarSesion,cerrarSesion,obtenerSesion,esAdministrador,actualizarInterfaz,configurarFormularioLogin,mostrarMensaje};
 
 const CLAVE_SESION = "sebamax_session";
 

@@ -106,7 +106,7 @@ function configurarEventosCarrito() {
         };
     }
 
-    const botonesEliminar = contenedor.getElementsByName("eliminar");
+    const botonesEliminar = contenedor.querySelectorAll("button[name='eliminar']");
     for (let i = 0; i < botonesEliminar.length; i++) {
         botonesEliminar[i].onclick = function () {
             const id = Number(this.value);

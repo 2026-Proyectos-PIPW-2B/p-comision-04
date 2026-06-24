@@ -1,5 +1,6 @@
 import { inicializarProductos, listarProductos, eliminarProducto } from "./modulos/gestorProductos.js";
 import { esAdministrador, actualizarInterfaz, configurarFormularioLogin } from "./modulos/gestorAuth.js";
+import {inicializarCarrito, agregarAlCarrito} from "./modulos/gestorCarrito.js";
 
 window.onload = function () {
     inicializarProductos();
@@ -77,27 +78,34 @@ function renderizarTablaProductos(productos, esAdmin) {
 
         if (esAdmin) {
             botonesAdmin = `
-                <td>
-                    <button class="btn btn-sm btn-outline-warning me-1" type="button" name="editar" value="${producto.id}">
+                    <button class="btn btn-sm btn-outline-warning" type="button" name="editar" value="${producto.id}">
                         <i class="bi bi-pencil"></i>
                     </button>
                     <button class="btn btn-sm btn-outline-danger" type="button" name="eliminar" value="${producto.id}">
                         <i class="bi bi-trash"></i>
-                    </button>
-                </td>`;
+                    </button>`;
         }
 
         tabla.innerHTML += `
             <tr>
                 <th scope="row">${producto.id}</th>
-                <td class="text-center">${producto.nombre}</td>
-                <td class="text-center">${producto.descripcion}</td>
+                <td class="text-center">
+                    <span class="text-truncate d-block" title="${producto.nombre}">${producto.nombre}</span>
+                </td>
+                <td class="text-center" style="max-width: 220px;">
+                    <span class="text-truncate d-block" title="${producto.descripcion}">${producto.descripcion}</span>
+                </td>
                 <td class="text-center">$${producto.precio.toLocaleString("es-AR")}</td>
                 <td class="text-center">${producto.stock}</td>
                 <td class="text-center">
                     <img src="${producto.imagen}" class="img-fluid img-listado" alt="${producto.nombre}">
                 </td>
-                ${botonesAdmin}
+                <td class="text-center">
+                    <button class="btn btn-sm btn-success" type="button" name="agregarAlCarrito" value="${producto.id}">
+                        <i class="bi bi-cart-plus"></i>
+                    </button>  
+                    ${botonesAdmin}
+                </td>
             </tr>`;
     }
 }
@@ -117,6 +125,14 @@ function configurarEventosTabla() {
         botonesEditar[i].onclick = function () {
             const id = Number(this.value);
             alert("Editar producto " + id);
+        };
+    }
+
+    const botonesAgregarAlCarrito = document.getElementsByName("agregarAlCarrito");
+    for (let i = 0; i < botonesAgregarAlCarrito.length; i++) {
+        botonesAgregarAlCarrito[i].onclick = function () {
+            const id = Number(this.value);
+            agregarAlCarrito(id);
         };
     }
 }

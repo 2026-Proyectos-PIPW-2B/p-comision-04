@@ -1,5 +1,6 @@
 import { guardarDato, obtenerDato } from "./gestorBD.js";
 import { obtenerProductoPorId } from "./gestorProductos.js";
+import {mostrarMensaje} from "./gestorAuth.js";
 
 export {inicializarCarrito,obtenerCarrito,agregarAlCarrito,eliminarDelCarrito,actualizarCantidadDelCarrito,vaciarCarrito,calcularTotal};
 
@@ -54,6 +55,7 @@ function agregarAlCarrito(idProducto) {
     }
 
     guardarCarrito(carrito);
+    mostrarMensaje("El producto se agregó al carrito", "success");
 }
 
 function eliminarDelCarrito(idProducto) {
