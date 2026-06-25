@@ -77,7 +77,7 @@ const PRODUCTOS_INICIALES = [
     }
 ];
 
-export {inicializarProductos,listarProductos,obtenerProductoPorId,agregarProducto,eliminarProducto};
+export {inicializarProductos,listarProductos,obtenerProductoPorId,agregarProducto,eliminarProducto,editarProducto};
 
 function inicializarProductos() {
     const productosGuardados = obtenerDato(PRODUCTOS_KEY);
@@ -119,4 +119,21 @@ function eliminarProducto(id) {
         }
     }
     guardarDato(PRODUCTOS_KEY, nuevosProductos);
+}
+
+function editarProducto(id, datosActualizados) {
+    const productos = listarProductos();
+    let modificado = false;
+
+    for (let i = 0; i < productos.length; i++) {
+        if (productos[i].id === id) {
+            productos[i].precio = datosActualizados.precio;
+            productos[i].stock = datosActualizados.stock;
+            modificado = true;
+        }
+    }
+
+    if (modificado) {
+        guardarDato(PRODUCTOS_KEY, productos);
+    }
 }

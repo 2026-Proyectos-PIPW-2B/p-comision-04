@@ -1,4 +1,4 @@
-import { inicializarProductos, listarProductos, eliminarProducto } from "./modulos/gestorProductos.js";
+import { inicializarProductos, listarProductos, eliminarProducto, agregarProducto, obtenerProductoPorId, editarProducto } from "./modulos/gestorProductos.js";
 import { esAdministrador, actualizarInterfaz, configurarFormularioLogin } from "./modulos/gestorAuth.js";
 import {agregarAlCarrito, inicializarCarrito} from "./modulos/gestorCarrito.js";
 
@@ -10,6 +10,7 @@ window.onload = function () {
     window.refrescarTablaProductos = mostrarProductos;
     mostrarProductos();
     configurarFiltros();
+    configurarAgregarProducto();
 };
 
 function configurarFiltros() {
@@ -125,7 +126,24 @@ function configurarEventosTabla() {
     for (let i = 0; i < botonesEditar.length; i++) {
         botonesEditar[i].onclick = function () {
             const id = Number(this.value);
-            alert("Editar producto " + id);
+            const producto = obtenerProductoPorId(id);
+
+            const campoId = document.getElementById("editarId");
+            const campoNombre = document.getElementById("editarNombre");
+            const campoPrecio = document.getElementById("editarPrecio");
+            const campoStock = document.getElementById("editarStock");
+            const contenedorError = document.getElementById("editarProductoError");
+
+            campoId.value = producto.id;
+            campoNombre.value = producto.nombre;
+            campoPrecio.value = producto.precio;
+            campoStock.value = producto.stock;
+            
+            contenedorError.classList.add("d-none");
+            contenedorError.textContent = "";
+            
+
+            new bootstrap.Modal(document.getElementById("editarProductoModal")).show();
         };
     }
 
@@ -137,3 +155,111 @@ function configurarEventosTabla() {
         };
     }
 }
+
+const formularioEditar = document.getElementById("editarProductoForm");
+
+formularioEditar.addEventListener("submit", function (evento) {
+    evento.preventDefault();
+
+    const campoId = document.getElementById("editarId");
+    const campoPrecio = document.getElementById("editarPrecio");
+    const campoStock = document.getElementById("editarStock");
+    const contenedorError = document.getElementById("editarProductoError");
+
+    const id = Number(campoId.value);
+    const precioValor = Number(campoPrecio.value);
+    const stockValor = Number(campoStock.value);
+
+    if (precioValor < 0 || stockValor < 0) {
+            contenedorError.textContent = "Precio y stock deben ser números válidos y no negativos.";
+            contenedorError.classList.remove("d-none");
+        return;
+    }
+
+    editarProducto(id, {precio: precioValor, stock: stockValor});
+    mostrarProductos();
+
+    new bootstrap.Modal(document.getElementById("editarProductoModal")).hide();
+});
+
+const btnEliminarModal = document.getElementById("editarEliminarBtn");
+
+btnEliminarModal.addEventListener("click", function () {
+    const id = Number(document.getElementById("editarId").value);
+
+    if (!confirm("¿Estás seguro que querés eliminar este producto?")) {
+        return;
+    }
+
+    eliminarProducto(id);
+    mostrarProductos();
+
+    new bootstrap.Modal(document.getElementById("editarProductoModal")).hide();
+});
+
+
+function configurarAgregarProducto() {
+    const formulario = document.getElementById("agregarProductoForm");
+    const errorContenedor = document.getElementById("agregarProductoError");
+
+    formulario.addEventListener("submit", function (evento) {
+        evento.preventDefault();
+
+        errorContenedor.classList.add("d-none");
+        errorContenedor.textContent = "";
+
+        const nombre = document.getElementById("nuevoNombre");
+        const descripcion = document.getElementById("nuevoDescripcion");
+        const precio = document.getElementById("nuevoPrecio");
+        const stock = document.getElementById("nuevoStock");
+        const categoria = document.getElementById("nuevoCategoria");
+        const imagenInput = document.getElementById("nuevoImagen");
+
+        const nombreValor = nombre.value.trim();
+        const descripcionValor = descripcion.value.trim();
+        const precioValor = Number(precio.value);
+        const stockValor = Number(stock.value);
+        const categoriaValor = categoria.value;
+
+        if (nombreValor === "" || descripcionValor === "" || isNaN(precioValor) || precioValor < 0 || isNaN(stockValor) || stockValor < 0) {
+            errorContenedor.textContent = "Completa todos los campos correctamente antes de guardar.";
+            errorContenedor.classList.remove("d-none");
+            return;
+        }
+
+        const procesarProducto = function(imagenValor) {
+            const productos = listarProductos();
+            const nuevoId = productos.length > 0 ? productos[productos.length - 1].id + 1 : 1;
+
+            const productoNuevo = {
+                id: nuevoId,
+                nombre: nombreValor,
+                descripcion: descripcionValor,
+                precio: precioValor,
+                stock: stockValor,
+                imagen: imagenValor,
+                categoria: categoriaValor
+            };
+
+            agregarProducto(productoNuevo);
+            mostrarProductos();
+
+           new bootstrap.Modal(document.getElementById("agregarProductoModal")).hide();
+
+            formulario.reset();
+        };
+
+        const archivo = imagenInput.files && imagenInput.files[0];
+        if (archivo) {
+            const lector = new FileReader();
+            lector.onload = function(eventoArchivo) {
+                procesarProducto(eventoArchivo.target.result);
+            };
+            lector.readAsDataURL(archivo);
+        } else {
+            procesarProducto("img/240.webp");
+        }
+    });
+}
+
+
