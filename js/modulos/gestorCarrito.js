@@ -1,5 +1,6 @@
 import { guardarDato, obtenerDato } from "./gestorBD.js";
 import { obtenerProductoPorId } from "./gestorProductos.js";
+import {mostrarMensaje} from "./gestorAuth.js";
 
 export {inicializarCarrito,obtenerCarrito,agregarAlCarrito,eliminarDelCarrito,actualizarCantidadDelCarrito,vaciarCarrito,calcularTotal};
 
@@ -10,6 +11,7 @@ function inicializarCarrito() {
     if (datos === null) {
         guardarDato(CLAVE_CARRITO, []);
     }
+    actualizarContadorCarrito();
 }
 
 function obtenerCarrito() {
@@ -22,6 +24,28 @@ function obtenerCarrito() {
 
 function guardarCarrito(carrito) {
     guardarDato(CLAVE_CARRITO, carrito);
+}
+
+function actualizarContadorCarrito() {
+    const elementos = document.querySelectorAll('.carrito-contador');
+    if (elementos.length === 0) {
+        return;
+    }
+
+    const carrito = obtenerCarrito();
+    let total = 0;
+    for (let i = 0; i < carrito.length; i++) {
+        total += Number(carrito[i].cantidad);
+    }
+
+    elementos.forEach(el => {
+        if (total > 0) {
+            el.textContent = total;
+            el.classList.remove('d-none');
+        } else {
+            el.classList.add('d-none');
+        }
+    });
 }
 
 function agregarAlCarrito(idProducto) {
@@ -54,6 +78,8 @@ function agregarAlCarrito(idProducto) {
     }
 
     guardarCarrito(carrito);
+    mostrarMensaje("El producto se agregó al carrito", "success");
+    actualizarContadorCarrito();
 }
 
 function eliminarDelCarrito(idProducto) {
@@ -67,6 +93,7 @@ function eliminarDelCarrito(idProducto) {
     }
 
     guardarCarrito(nuevoCarrito);
+    actualizarContadorCarrito();
 }
 
 function actualizarCantidadDelCarrito(idProducto, numeroAgregaroRestar) {
@@ -83,10 +110,12 @@ function actualizarCantidadDelCarrito(idProducto, numeroAgregaroRestar) {
     }
 
     guardarCarrito(carrito);
+    actualizarContadorCarrito();
 }
 
 function vaciarCarrito() {
     guardarCarrito([]);
+    actualizarContadorCarrito();
 }
 
 function calcularTotal() {

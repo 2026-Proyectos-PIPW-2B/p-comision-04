@@ -1,4 +1,6 @@
-export {iniciarSesion,cerrarSesion,obtenerSesion,esAdministrador,actualizarInterfaz,configurarFormularioLogin}
+import {guardarDato, obtenerDato, eliminarDato} from "./gestorBD.js";
+
+export {iniciarSesion,cerrarSesion,obtenerSesion,esAdministrador,actualizarInterfaz,configurarFormularioLogin,mostrarMensaje};
 
 const CLAVE_SESION = "sebamax_session";
 
@@ -8,14 +10,7 @@ const LISTA_USUARIOS = [
 ];
 
 function obtenerSesion() {
-  const datosGuardados = localStorage.getItem(CLAVE_SESION);
-
-  if (datosGuardados === null) {
-    return null;
-  }
-
-  const sesion = JSON.parse(datosGuardados);
-  return sesion;
+  return obtenerDato(CLAVE_SESION);
 }
 
 function guardarSesion(usuario) {
@@ -24,26 +19,15 @@ function guardarSesion(usuario) {
     rol: usuario.rol
   };
 
-  localStorage.setItem(CLAVE_SESION, JSON.stringify(datosSesion));
+  guardarDato(CLAVE_SESION, datosSesion);
 }
 
 function borrarSesion() {
-  localStorage.removeItem(CLAVE_SESION);
+  eliminarDato(CLAVE_SESION);
 }
 
 function esAdministrador() {
-  const sesion = obtenerSesion();
-
-  if (sesion === null) {
-    return false;
-  }
-
-  if (sesion.rol === "admin") {
-   
-    return true;
-  }
-
-  return false;
+  return obtenerSesion()?.rol === "admin";
 }
 
 function iniciarSesion(nombreUsuario, clave) {
@@ -54,12 +38,12 @@ function iniciarSesion(nombreUsuario, clave) {
 
     if (usuarioActual.nombreUsuario === nombreUsuario && usuarioActual.clave === clave) {
       usuarioEncontrado = usuarioActual;
-      break;
+        break;
+      }
     }
-  }
 
-  if (usuarioEncontrado === null) {
-    return false;
+    if (usuarioEncontrado === null) {
+      return false;
   }
 
   guardarSesion(usuarioEncontrado);
@@ -73,41 +57,34 @@ function cerrarSesion() {
 
 function actualizarInterfaz() {
   const sesion = obtenerSesion();
+  const elementosSoloAdmin = document.querySelectorAll(".soloAdmin");
+  const usuarioEsAdmin = esAdministrador();
 
-  const contenedoresAuth = document.querySelectorAll("[data-auth-container]");
-
-  for (let i = 0; i < contenedoresAuth.length; i++) {
-    const contenedor = contenedoresAuth[i];
-
+  const contenedorBtnIngresar = document.getElementById("contenedorBtnIngresar");
+  if (contenedorBtnIngresar !== null) {
     if (sesion === null) {
-      contenedor.innerHTML =
+      contenedorBtnIngresar.innerHTML =
         '<button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal">' +
         "Ingresar</button>";
-
     } else {
       let colorInsignia = "info text-dark";
 
-      if (sesion.rol === "admin") {
+      if (usuarioEsAdmin) {
         colorInsignia = "warning text-dark";
       }
 
-      contenedor.innerHTML =
+      contenedorBtnIngresar.innerHTML =
         '<span class="badge bg-' + colorInsignia + '">' +
         sesion.rol.toUpperCase() + ": " + sesion.nombreUsuario +
         "</span>" +
         '<button id="logoutBtn" class="btn btn-danger btn-sm ms-2">Salir</button>';
 
       const botonSalir = document.getElementById("logoutBtn");
-
       if (botonSalir !== null) {
         botonSalir.addEventListener("click", cerrarSesion);
       }
     }
-
   }
-
-  const elementosSoloAdmin = document.querySelectorAll("[data-admin-only]");
-  const usuarioEsAdmin = esAdministrador();
 
   for (let i = 0; i < elementosSoloAdmin.length; i++) {
     if (usuarioEsAdmin === true) {
@@ -117,26 +94,22 @@ function actualizarInterfaz() {
     }
   }
 
-  const elementosSoloConSesion = document.querySelectorAll("[data-auth-only]");
-
-  for (let i = 0; i < elementosSoloConSesion.length; i++) {
-    if (sesion === null) {
-      elementosSoloConSesion[i].classList.add("d-none");
+  const elementosSoloUsuario = document.querySelectorAll('.soloUsuario');
+  for (let i = 0; i < elementosSoloUsuario.length; i++) {
+    if (usuarioEsAdmin === false) {
+      elementosSoloUsuario[i].classList.remove('d-none');
     } else {
-      elementosSoloConSesion[i].classList.remove("d-none");
+      elementosSoloUsuario[i].classList.add('d-none');
     }
   }
 
-  const elementosSinSesion = document.querySelectorAll("[data-no-auth]");
-
-  for (let i = 0; i < elementosSinSesion.length; i++) {
-
+  const elementosSinSesion = document.getElementById("authWarning")
+  if (elementosSinSesion !== null) {
     if (sesion === null) {
-        elementosSinSesion[i].classList.remove("d-none");
+      elementosSinSesion.classList.remove("d-none");
     } else {
-        elementosSinSesion[i].classList.add("d-none");
+      elementosSinSesion.classList.add("d-none");
     }
-
   }
 }
 

@@ -21,18 +21,19 @@
                     <a class="nav-link active" href="listado-productos.html">Productos</a>
                 </li>
 
-                <li class="nav-item d-none" data-admin-only>
-                    <a class="nav-link text-warning" href="#">
+                <li class="nav-item d-none soloAdmin">
+                    <a class="nav-link text-warning" href="listado-usuarios.html">
                         <i class="bi bi-gear-fill"></i> Panel Admin
                     </a>
                 </li>
             </ul>
 
             <div class="d-flex align-items-center gap-3">
-                <a href="carrito.html" class="btn btn-outline-success">
+                <a href="carrito.html" class="btn btn-outline-success soloUsuario">
                     <i class="bi bi-cart3"></i>
+                    <span class="badge bg-success ms-1 carrito-contador d-none">0</span>
                 </a>
-                <div data-auth-container class="d-flex align-items-center gap-2">
+                <div id="contenedorBtnIngresar" class="d-flex align-items-center gap-2">
                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#loginModal">
                         <i class="bi bi-person"></i> Ingresar
                     </button>
@@ -42,16 +43,17 @@
     </div>
 </nav>
 
-<main class="container py-5 mt-5 flex-grow-1">
+<section class="w-100 py-5 mt-5 flex-grow-1 bg-secondary-subtle">
+    <div class="container">
 
-    <div class="row mb-4">
+        <div class="row mb-4">
         <div class="col">
             <h1 class="text-success">Productos</h1>
             <p class="text-secondary">Explorá nuestro catálogo de hardware y periféricos.</p>
         </div>
 
-        <div class="col-auto align-self-center d-none" data-admin-only>
-            <button id="btnAgregarProducto" class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#agregarProductoModal">
+        <div class="col-auto align-self-center d-none soloAdmin">
+            <button class="btn btn-warning">
                 <i class="bi bi-plus-circle-fill me-2"></i>Agregar producto
             </button>
         </div>
@@ -82,7 +84,7 @@
                         <th scope="col" class="text-center">Precio</th>
                         <th scope="col" class="text-center">Stock</th>
                         <th scope="col" class="text-center">Imagen</th>
-                        <th scope="col" class="d-none" data-admin-only>Acciones</th>
+                        <th scope="col" class="text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody id="tablaProductos">
@@ -91,7 +93,9 @@
         </div>
     </div>
 
-</main>
+    </div>
+
+</section>
 
 <div class="modal fade" id="loginModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">

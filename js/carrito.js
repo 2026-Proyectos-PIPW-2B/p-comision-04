@@ -1,10 +1,15 @@
 import { inicializarCarrito, obtenerCarrito, eliminarDelCarrito, actualizarCantidadDelCarrito } from "./modulos/gestorCarrito.js";
-import { actualizarInterfaz, configurarFormularioLogin } from "./modulos/gestorAuth.js";
+import { actualizarInterfaz, configurarFormularioLogin, esAdministrador } from "./modulos/gestorAuth.js";
 
 window.onload = function () {
     inicializarCarrito();
     actualizarInterfaz();
     configurarFormularioLogin();
+    if (esAdministrador()) {
+        location.href = "index.html";
+        return;
+    }
+
     mostrarCarrito();
     configurarEventosCarrito();
 };
@@ -12,10 +17,6 @@ window.onload = function () {
 function mostrarCarrito() {
     const contenedor = document.getElementById("productosCarrito");
     const resumen = document.getElementById("resumenCarrito");
-
-    if (contenedor === null || resumen === null) {
-        return;
-    }
 
     const carrito = obtenerCarrito();
     let totalCompra = 0;
@@ -84,9 +85,6 @@ function mostrarCarrito() {
 
 function configurarEventosCarrito() {
     const contenedor = document.getElementById("productosCarrito");
-    if (contenedor === null) {
-        return;
-    }
 
     const botonesDisminuir = contenedor.querySelectorAll("button[name='disminuir']");
     for (let i = 0; i < botonesDisminuir.length; i++) {

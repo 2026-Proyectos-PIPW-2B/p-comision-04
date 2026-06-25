@@ -36,3 +36,20 @@ tr{
     display: block;
     margin: 0 auto;
 }
+.img-index-verMas{
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+.etiquetaStock {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: .25rem .5rem;
+    font-size: .75rem;
+    border-radius: .5rem;
+    opacity: 0.95;
+}
