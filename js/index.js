@@ -1,6 +1,6 @@
 import {inicializarProductos, listarProductos} from "./modulos/gestorProductos.js";
 import {actualizarInterfaz, configurarFormularioLogin, esAdministrador} from "./modulos/gestorAuth.js";
-import {agregarAlCarrito} from "./modulos/gestorCarrito.js";
+import {agregarAlCarrito, inicializarCarrito} from "./modulos/gestorCarrito.js";
 
 window.onload = function () {
     inicializarProductos();
@@ -35,10 +35,22 @@ function renderizarTablaProductos(productos, esAdmin) {
 
     for (let i = 0; i < productos.length; i++) {
         const producto = productos[i];
+        let stockClase = "bg-success";
+        let stockTexto = `${producto.stock} en stock`;
+        if (producto.stock === 0) {
+            stockClase = "bg-danger";
+            stockTexto = "Agotado";
+        } else if (producto.stock <= 2) {
+            stockClase = "bg-danger";
+        } else if (producto.stock <= 5) {
+            stockClase = "bg-warning text-dark";
+        }
+        const etiquetaStock = `<span class="fw-bold etiquetaStock ${stockClase}">${stockTexto}</span>`;
 
         contenedor.innerHTML += `
             <div class="col-12 col-md-6 col-lg-3">
-                <div class="card h-100 bg-dark text-light border-success">
+                <div class="card h-100 bg-dark text-light border-success position-relative">
+                    ${etiquetaStock}
                     <img src="${producto.imagen}" class="card-img-top" alt="${producto.nombre}">
                     <div class="card-body d-flex flex-column">
                         <h5 class="card-title mb-3 text-center">${producto.nombre}</h5>
@@ -63,7 +75,8 @@ function renderizarTablaProductos(productos, esAdmin) {
                             <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <div class="mb-4 text-center">
+                            <div class="mb-4 text-center position-relative">
+                                ${etiquetaStock}
                                 <img src="${producto.imagen}" class="img-index-verMas rounded shadow" alt="${producto.nombre}">
                             </div>
                             <div class="mb-3">
@@ -71,7 +84,7 @@ function renderizarTablaProductos(productos, esAdmin) {
                                 <p class="fw-normal lh-lg">${producto.descripcion}</p>
                             </div>
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <span class="fw-bold fs-5">Precio: $${producto.precio.toFixed(2)}</span>
+                                <span class="fw-bold fs-5">Precio: $${producto.precio.toLocaleString("es-AR")}</span>
                             </div>
                         </div>
                         <div class="modal-footer border-success">
