@@ -4,6 +4,7 @@ import {inicializarCarrito, agregarAlCarrito} from "./modulos/gestorCarrito.js";
 
 window.onload = function () {
     inicializarProductos();
+    inicializarCarrito();
     actualizarInterfaz();
     configurarFormularioLogin();
     window.agregarAlCarrito = agregarAlCarrito;
@@ -48,9 +49,9 @@ function renderizarTablaProductos(productos, esAdmin) {
                             <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modal${producto.id}" type="button">
                                 Ir al producto
                             </button>
-                            <button class="btn btn-success" type="button" onclick="agregarAlCarrito(${producto.id})">
+                            ${esAdmin ? '' : `<button class="btn btn-success soloUsuario" type="button" onclick="agregarAlCarrito(${producto.id})">
                                 Agregar al carrito
-                            </button>
+                            </button>`}
                             ${esAdmin ? btnAdmin : ""}
                         </div>
                     </div>
@@ -78,9 +79,9 @@ function renderizarTablaProductos(productos, esAdmin) {
                         </div>
                         <div class="modal-footer border-success">
                             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-success" onclick="agregarAlCarrito(${producto.id})">
+                            ${esAdmin ? '' : `<button type="button" class="btn btn-success soloUsuario" onclick="agregarAlCarrito(${producto.id})">
                                 <i class="bi bi-cart-plus me-2"></i>Agregar al carrito
-                            </button>
+                            </button>`}
                         </div>
                     </div>
                 </div>

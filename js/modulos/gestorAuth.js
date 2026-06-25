@@ -69,7 +69,7 @@ function actualizarInterfaz() {
     } else {
       let colorInsignia = "info text-dark";
 
-      if (sesion.rol === "admin") {
+      if (usuarioEsAdmin) {
         colorInsignia = "warning text-dark";
       }
 
@@ -91,6 +91,15 @@ function actualizarInterfaz() {
       elementosSoloAdmin[i].classList.remove("d-none");
     } else {
       elementosSoloAdmin[i].classList.add("d-none");
+    }
+  }
+
+  const elementosSoloUsuario = document.querySelectorAll('.soloUsuario');
+  for (let i = 0; i < elementosSoloUsuario.length; i++) {
+    if (usuarioEsAdmin === false) {
+      elementosSoloUsuario[i].classList.remove('d-none');
+    } else {
+      elementosSoloUsuario[i].classList.add('d-none');
     }
   }
 

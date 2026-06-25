@@ -4,6 +4,7 @@ import {inicializarCarrito, agregarAlCarrito} from "./modulos/gestorCarrito.js";
 
 window.onload = function () {
     inicializarProductos();
+    inicializarCarrito();
     actualizarInterfaz();
     configurarFormularioLogin();
     window.refrescarTablaProductos = mostrarProductos;
@@ -101,9 +102,9 @@ function renderizarTablaProductos(productos, esAdmin) {
                     <img src="${producto.imagen}" class="img-fluid img-listado" alt="${producto.nombre}">
                 </td>
                 <td class="text-center">
-                    <button class="btn btn-sm btn-success" type="button" name="agregarAlCarrito" value="${producto.id}">
+                    ${esAdmin ? '' : `<button class="btn btn-sm btn-success soloUsuario" type="button" name="agregarAlCarrito" value="${producto.id}">
                         <i class="bi bi-cart-plus"></i>
-                    </button>  
+                    </button>`}  
                     ${botonesAdmin}
                 </td>
             </tr>`;

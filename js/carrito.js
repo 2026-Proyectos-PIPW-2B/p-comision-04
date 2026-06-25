@@ -1,10 +1,15 @@
 import { inicializarCarrito, obtenerCarrito, eliminarDelCarrito, actualizarCantidadDelCarrito } from "./modulos/gestorCarrito.js";
-import { actualizarInterfaz, configurarFormularioLogin } from "./modulos/gestorAuth.js";
+import { actualizarInterfaz, configurarFormularioLogin, esAdministrador } from "./modulos/gestorAuth.js";
 
 window.onload = function () {
     inicializarCarrito();
     actualizarInterfaz();
     configurarFormularioLogin();
+    if (esAdministrador()) {
+        location.href = "index.html";
+        return;
+    }
+
     mostrarCarrito();
     configurarEventosCarrito();
 };
