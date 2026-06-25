@@ -51,7 +51,7 @@
         </div>
 
         <div class="col-auto align-self-center d-none" data-admin-only>
-            <button class="btn btn-warning">
+            <button id="btnAgregarProducto" class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#agregarProductoModal">
                 <i class="bi bi-plus-circle-fill me-2"></i>Agregar producto
             </button>
         </div>
@@ -127,7 +127,95 @@
         </div>
     </div>
 </div>
+ 
+            
+<div class="modal fade" id="editarProductoModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark text-light border-success">
+            <div class="modal-header border-success">
+                <h5 class="modal-title text-success">
+                    <i class="bi bi-pencil-fill me-2"></i>Editar producto
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="editarProductoError" class="alert alert-danger d-none py-2" role="alert"></div>
+                <form id="editarProductoForm">
+                    <input type="hidden" id="editarId">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="editarPrecio" class="form-label">Precio</label>
+                            <input type="number" class="form-control bg-dark text-light border-secondary" id="editarPrecio" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="editarStock" class="form-label">Stock</label>
+                            <input type="number" min="0" step="1" class="form-control bg-dark text-light border-secondary" id="editarStock" required>
+                        </div>
+                    </div>
+                    <div class="mt-4 d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="button" id="editarEliminarBtn" class="btn btn-danger">Eliminar producto</button>
+                        <button type="submit" class="btn btn-success">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div class="modal fade" id="agregarProductoModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content bg-dark text-light border-success">
+            <div class="modal-header border-success">
+                <h5 class="modal-title text-success">
+                    <i class="bi bi-plus-circle-fill me-2"></i>Agregar producto
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="agregarProductoError" class="alert alert-danger d-none py-2" role="alert"></div>
+                <form id="agregarProductoForm">
+                    <div class="mb-3">
+                        <label for="nuevoNombre" class="form-label">Nombre</label>
+                        <input type="text" class="form-control bg-dark text-light border-secondary" id="nuevoNombre" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nuevoDescripcion" class="form-label">Descripción</label>
+                        <textarea class="form-control bg-dark text-light border-secondary" id="nuevoDescripcion" rows="3" required></textarea>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="nuevoPrecio" class="form-label">Precio</label>
+                            <input type="number" class="form-control bg-dark text-light border-secondary" id="nuevoPrecio" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="nuevoStock" class="form-label">Stock</label>
+                            <input type="number" min="0" step="1" class="form-control bg-dark text-light border-secondary" id="nuevoStock" required>
+                        </div>
+                    </div>
+                    <div class="row g-3 mt-3">
+                        <div class="col-md-6">
+                            <label for="nuevoCategoria" class="form-label">Categoría</label>
+                            <select id="nuevoCategoria" class="form-select bg-dark text-light border-secondary" required>
+                                <option value="Monitores">Monitores</option>
+                                <option value="Periféricos">Periféricos</option>
+                                <option value="Placas de video">Placas de video</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="nuevoImagen" class="form-label">Imagen</label>
+                            <input type="file" accept="image/*" class="form-control bg-dark text-light border-secondary" id="nuevoImagen">
+                        </div>
+                    </div>
+                    <div class="mt-4 d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Guardar producto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <footer id="footer" class="bg-dark text-white py-4">
     <div class="container">
@@ -147,9 +235,15 @@
             <div class="col-md-4">
                 <h5>Redes</h5>
                 <div class="d-flex gap-3 justify-content-center justify-content-md-start">
-                    <i class="bi bi-instagram fs-4"></i>
-                    <i class="bi bi-facebook fs-4"></i>
-                    <i class="bi bi-twitter-x fs-4"></i>
+                    <a href="https://compragamer.com/" target="_blank">
+                        <i class="bi bi-instagram fs-4"></i>
+                    </a>
+                    <a href="https://compragamer.com/" target="_blank">
+                        <i class="bi bi-facebook fs-4"></i>
+                    </a>
+                    <a href="https://compragamer.com/" target="_blank">
+                        <i class="bi bi-twitter-x fs-4"></i>
+                    </a>
                 </div>
             </div>
         </div>

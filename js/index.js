@@ -1,4 +1,4 @@
-import {inicializarProductos, listarProductos} from "./modulos/gestorProductos.js";
+import {inicializarProductos, listarProductos, obtenerProductoPorId, editarProducto, eliminarProducto} from "./modulos/gestorProductos.js";
 import {actualizarInterfaz, configurarFormularioLogin, esAdministrador} from "./modulos/gestorAuth.js";
 import {inicializarCarrito, agregarAlCarrito} from "./modulos/gestorCarrito.js";
 
@@ -25,11 +25,12 @@ function renderizarTablaProductos(productos, esAdmin) {
 
     contenedor.innerHTML = "";
 
-    const btnAdmin = `
+    const btnAdmin = (id) => `
         <button
             class="btn btn-warning btn-sm"
             data-admin-only="true"
             type="button"
+            onclick="abrirEditarProducto(${id})"
         >
             <i class="bi bi-pencil-fill"></i>
             Editar producto
@@ -52,10 +53,72 @@ function renderizarTablaProductos(productos, esAdmin) {
                             <button class="btn btn-success" type="button" onclick="agregarAlCarrito(${producto.id})">
                                 Agregar al carrito
                             </button>
-                            ${esAdmin ? btnAdmin : ""}
+                                ${esAdmin ? btnAdmin(producto.id) : ""}
                         </div>
                     </div>
                 </div>
             </div>`;
     }
 }
+
+function abrirEditarProducto(id) {
+    const producto = obtenerProductoPorId(id);
+    if (producto === null) return;
+
+    const campoId = document.getElementById("editarId");
+    const campoNombre = document.getElementById("editarNombre");
+    const campoPrecio = document.getElementById("editarPrecio");
+    const campoStock = document.getElementById("editarStock");
+    const contenedorError = document.getElementById("editarProductoError");
+
+    if (campoId) campoId.value = producto.id;
+    if (campoNombre) campoNombre.value = producto.nombre;
+    if (campoPrecio) campoPrecio.value = producto.precio;
+    if (campoStock) campoStock.value = producto.stock;
+    if (contenedorError) {
+        contenedorError.classList.add("d-none");
+        contenedorError.textContent = "";
+    }
+
+    new bootstrap.Modal(document.getElementById("editarProductoModal")).show();
+}
+
+window.abrirEditarProducto = abrirEditarProducto;
+
+const formularioEditarIndex = document.getElementById("editarProductoForm");
+
+formularioEditarIndex.addEventListener("submit", function (evento) {
+    evento.preventDefault();
+    const campoId = document.getElementById("editarId");
+    const campoPrecio = document.getElementById("editarPrecio");
+    const campoStock = document.getElementById("editarStock");
+    const contenedorError = document.getElementById("editarProductoError");
+
+    const id = Number(campoId.value);
+    const precioValor = Number(campoPrecio.value);
+    const stockValor = Number(campoStock.value);
+
+    if (precioValor < 0 || stockValor < 0) {
+            contenedorError.textContent = "Precio y stock deben ser números válidos y no negativos.";
+            contenedorError.classList.remove("d-none");
+        return;
+    }
+
+    editarProducto(id, { precio: precioValor, stock: stockValor });
+    mostrarProductos();
+
+    new bootstrap.Modal(document.getElementById("editarProductoModal")).hide();
+});
+
+
+const btnEliminarIndex = document.getElementById("editarEliminarBtn");
+
+btnEliminarIndex.addEventListener("click", function () {
+
+    if (!confirm("¿Estás seguro que querés eliminar este producto?")) return;
+
+    eliminarProducto(id);
+    mostrarProductos();
+
+    new bootstrap.Modal(document.getElementById("editarProductoModal")).hide();
+});

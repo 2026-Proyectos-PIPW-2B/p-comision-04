@@ -73,9 +73,9 @@ function mostrarCarrito() {
             <strong class="fs-2">$${totalCompra.toLocaleString("es-AR")}</strong>
         </div>
         <div class="d-grid gap-3 mt-4">
-            <button class="btn btn-success" type="button">
+            <button class="btn btn-success" type="button" id="btnFinalizarCompra">
                 <i class="bi bi-credit-card me-2"></i>
-                Iniciar compra
+                Finalizar compra
             </button>
             <a href="listado-productos.html" class="btn btn-outline-success">Ver más productos</a>
         </div>`;
@@ -106,7 +106,7 @@ function configurarEventosCarrito() {
         };
     }
 
-    const botonesEliminar = contenedor.getElementsByName("eliminar");
+    const botonesEliminar = contenedor.querySelectorAll("button[name='eliminar']");
     for (let i = 0; i < botonesEliminar.length; i++) {
         botonesEliminar[i].onclick = function () {
             const id = Number(this.value);
