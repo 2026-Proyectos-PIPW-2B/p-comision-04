@@ -1,4 +1,4 @@
-import { inicializarCarrito, obtenerCarrito, eliminarDelCarrito, actualizarCantidadDelCarrito, finalizarCompra, mostrarModalFinalizarCompra} from "./modulos/gestorCarrito.js";
+import { inicializarCarrito, obtenerCarrito, eliminarDelCarrito, actualizarCantidadDelCarrito, finalizarCompra} from "./modulos/gestorCarrito.js";
 import { actualizarInterfaz, configurarFormularioLogin, esAdministrador } from "./modulos/gestorAuth.js";
 
 window.onload = function () {
@@ -122,4 +122,73 @@ function configurarEventosCarrito() {
             }
         };
     }
+}
+
+function mostrarModalFinalizarCompra() {
+    let container = document.getElementById("modalFinalizarCompra");
+
+    container = document.createElement("div");
+    container.id = "modalFinalizarCompra";
+    document.body.appendChild(container);
+
+    container.innerHTML = `
+    <div class="modal fade" id="pedidoRealizadoModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-light border-success">
+
+                <div class="modal-header border-success">
+                    <h5 class="modal-title text-success">
+                        <i class="bi bi-check-circle-fill me-2"></i>
+                        ¡Compra realizada!
+                    </h5>
+                    <button type="button"
+                            class="btn-close btn-close-white"
+                            data-bs-dismiss="modal">
+                    </button>
+                </div>
+
+                <div class="modal-body text-center">
+
+                    <i class="bi bi-box-seam display-1 text-success"></i>
+
+                    <h4 class="mt-3">
+                        Tu pedido fue confirmado correctamente.
+                    </h4>
+
+                    <p class="text-secondary mb-4">
+                        Estamos preparando tu compra. En breve será despachada.
+                    </p>
+
+                    <div class="card bg-secondary-subtle text-dark mb-3">
+                        <div class="card-body">
+                            <h6 class="mb-2">Número de seguimiento</h6>
+                            <h3 id="numeroTicket" class="text-success fw-bold"></h3>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-success mb-0">
+                        <i class="bi bi-truck me-2"></i>
+                        Tu pedido está en camino.
+                    </div>
+
+                </div>
+
+                <div class="modal-footer border-success">
+                    <button class="btn btn-success"
+                            data-bs-dismiss="modal">
+                        Aceptar
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>`;
+
+    const modalElement = container.querySelector('.modal');
+    const modal = new bootstrap.Modal(modalElement);
+    const ticketNumber = Math.floor(Math.random() * 900000) + 100000;
+    const ticketElement = container.querySelector('#numeroTicket');
+    ticketElement.textContent = ticketNumber;
+
+    modal.show();
 }
