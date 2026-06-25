@@ -61,8 +61,8 @@ function renderizarTablaProductos(productos, esAdmin) {
                             </button>
                             ${esAdmin ? '' : `<button class="btn btn-success soloUsuario" type="button" onclick="agregarAlCarrito(${producto.id})">
                                 Agregar al carrito
-                            </button>
-                                ${esAdmin ? btnAdmin(producto.id) : ""}
+                            </button>`}
+                            ${esAdmin ? btnAdmin(producto.id) : ""}
                         </div>
                     </div>
                 </div>

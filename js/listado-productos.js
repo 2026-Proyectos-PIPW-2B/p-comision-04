@@ -129,13 +129,11 @@ function configurarEventosTabla() {
             const producto = obtenerProductoPorId(id);
 
             const campoId = document.getElementById("editarId");
-            const campoNombre = document.getElementById("editarNombre");
             const campoPrecio = document.getElementById("editarPrecio");
             const campoStock = document.getElementById("editarStock");
             const contenedorError = document.getElementById("editarProductoError");
 
             campoId.value = producto.id;
-            campoNombre.value = producto.nombre;
             campoPrecio.value = producto.precio;
             campoStock.value = producto.stock;
             
@@ -179,7 +177,8 @@ formularioEditar.addEventListener("submit", function (evento) {
     editarProducto(id, {precio: precioValor, stock: stockValor});
     mostrarProductos();
 
-    new bootstrap.Modal(document.getElementById("editarProductoModal")).hide();
+    const editarModal = bootstrap.Modal.getInstance(document.getElementById("editarProductoModal")) || new bootstrap.Modal(document.getElementById("editarProductoModal"));
+    editarModal.hide();
 });
 
 const btnEliminarModal = document.getElementById("editarEliminarBtn");
@@ -242,9 +241,10 @@ function configurarAgregarProducto() {
             };
 
             agregarProducto(productoNuevo);
-            mostrarProductos();
+            mostrarProductos(); 
 
-           new bootstrap.Modal(document.getElementById("agregarProductoModal")).hide();
+            const agregarModal = bootstrap.Modal.getInstance(document.getElementById("agregarProductoModal")) || new bootstrap.Modal(document.getElementById("agregarProductoModal"));
+            agregarModal.hide();
 
             formulario.reset();
         };

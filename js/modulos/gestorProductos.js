@@ -1,4 +1,5 @@
 import { guardarDato, obtenerDato } from "./gestorBD.js";
+import {mostrarMensaje} from "./gestorAuth.js";
 
 const PRODUCTOS_KEY = "productos";
 
@@ -108,6 +109,7 @@ function agregarProducto(productoNuevo) {
     const productos = listarProductos();
     productos.push(productoNuevo);
     guardarDato(PRODUCTOS_KEY, productos);
+    mostrarMensaje("El producto se agregó correctamente", "success");
 }
 
 function eliminarProducto(id) {
