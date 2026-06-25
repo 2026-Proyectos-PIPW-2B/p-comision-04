@@ -18,10 +18,6 @@ function mostrarCarrito() {
     const contenedor = document.getElementById("productosCarrito");
     const resumen = document.getElementById("resumenCarrito");
 
-    if (contenedor === null || resumen === null) {
-        return;
-    }
-
     const carrito = obtenerCarrito();
     let totalCompra = 0;
     let totalProductos = 0;
@@ -89,9 +85,6 @@ function mostrarCarrito() {
 
 function configurarEventosCarrito() {
     const contenedor = document.getElementById("productosCarrito");
-    if (contenedor === null) {
-        return;
-    }
 
     const botonesDisminuir = contenedor.querySelectorAll("button[name='disminuir']");
     for (let i = 0; i < botonesDisminuir.length; i++) {

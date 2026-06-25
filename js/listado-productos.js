@@ -1,6 +1,6 @@
 import { inicializarProductos, listarProductos, eliminarProducto } from "./modulos/gestorProductos.js";
 import { esAdministrador, actualizarInterfaz, configurarFormularioLogin } from "./modulos/gestorAuth.js";
-import {inicializarCarrito, agregarAlCarrito} from "./modulos/gestorCarrito.js";
+import {agregarAlCarrito} from "./modulos/gestorCarrito.js";
 
 window.onload = function () {
     inicializarProductos();
