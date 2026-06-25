@@ -137,5 +137,6 @@ function editarProducto(id, datosActualizados) {
 
     if (modificado) {
         guardarDato(PRODUCTOS_KEY, productos);
+        mostrarMensaje("El producto se editó correctamente", "warning");
     }
 }

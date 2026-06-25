@@ -1,4 +1,4 @@
-import { inicializarCarrito, obtenerCarrito, eliminarDelCarrito, actualizarCantidadDelCarrito } from "./modulos/gestorCarrito.js";
+import { inicializarCarrito, obtenerCarrito, eliminarDelCarrito, actualizarCantidadDelCarrito, finalizarCompra, mostrarModalFinalizarCompra} from "./modulos/gestorCarrito.js";
 import { actualizarInterfaz, configurarFormularioLogin, esAdministrador } from "./modulos/gestorAuth.js";
 
 window.onload = function () {
@@ -110,6 +110,16 @@ function configurarEventosCarrito() {
             const id = Number(this.value);
             eliminarDelCarrito(id);
             mostrarCarrito();
+        };
+    }
+    const btnFinalizarCompra = document.getElementById("btnFinalizarCompra");
+    if (btnFinalizarCompra !== null) {
+        btnFinalizarCompra.onclick = function () {
+            const success = finalizarCompra();
+            mostrarCarrito();
+            if (success) {
+                mostrarModalFinalizarCompra();
+            }
         };
     }
 }
