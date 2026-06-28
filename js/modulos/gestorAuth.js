@@ -1,5 +1,5 @@
 import {guardarDato, obtenerDato, eliminarDato} from "./gestorBD.js";
-
+import {obtenerUsuarios} from "./gestorUsuarios.js";
 export {iniciarSesion,cerrarSesion,obtenerSesion,esAdministrador,actualizarInterfaz,configurarFormularioLogin,mostrarMensaje};
 
 const CLAVE_SESION = "sebamax_session";
@@ -41,10 +41,22 @@ function iniciarSesion(nombreUsuario, clave) {
         break;
       }
     }
+    if (usuarioEncontrado === null) {
+      const usuarios = obtenerUsuarios();
+      for (let i = 0; i < usuarios.length; i++) {
+        const u = usuarios[i];
+        if (u.nombreUsuario === nombreUsuario && u.clave === clave) {
+          if (u.habilitado === false) {
+            return "deshabilitado";
+          }
+          usuarioEncontrado = { nombreUsuario: u.nombreUsuario, rol: u.rol};
+          break;
+        }
+      }
 
     if (usuarioEncontrado === null) {
       return false;
-  }
+  }}
 
   guardarSesion(usuarioEncontrado);
   return usuarioEncontrado;
@@ -131,10 +143,18 @@ function configurarFormularioLogin() {
     const clave = campoClave.value;
 
     const resultado = iniciarSesion(nombreUsuario, clave);
+    
+    if (resultado === "deshabilitado") {
+        mostrarMensaje(
+            "Usuario deshabilitado por la administración. Si desea acceder al sitio, contacte al soporte.",
+            "danger"
+        );
+        return;
+    }
 
     if (resultado === false) {
-      contenedorError.classList.remove("d-none");
-      return;
+        contenedorError.classList.remove("d-none");
+        return;
     }
 
     const elementoModal = document.getElementById("loginModal");

@@ -68,9 +68,6 @@ function mostrarProductos() {
 
 function renderizarTablaProductos(productos, esAdmin) {
     const tabla = document.getElementById("tablaProductos");
-    if (tabla === null) {
-        return;
-    }
 
     tabla.innerHTML = "";
 
