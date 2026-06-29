@@ -1,5 +1,6 @@
 import { guardarDato, obtenerDato } from "./gestorBD.js";
 import {mostrarMensaje} from "./gestorAuth.js";
+import {eliminarDelCarrito} from "./gestorCarrito.js";
 
 const PRODUCTOS_KEY = "productos";
 
@@ -121,6 +122,7 @@ function eliminarProducto(id) {
         }
     }
     guardarDato(PRODUCTOS_KEY, nuevosProductos);
+    eliminarDelCarrito(id);
 }
 
 function editarProducto(id, datosActualizados) {
