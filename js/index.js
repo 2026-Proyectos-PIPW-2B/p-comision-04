@@ -157,8 +157,11 @@ formularioEditarIndex.addEventListener("submit", function (evento) {
 const btnEliminarIndex = document.getElementById("editarEliminarBtn");
 
 btnEliminarIndex.addEventListener("click", function () {
+    const id = Number(document.getElementById("editarId").value);
 
-    if (!confirm("¿Estás seguro que querés eliminar este producto?")) return;
+    if (!confirm("¿Estás seguro que querés eliminar este producto?")) {
+        return;
+    }
 
     eliminarProducto(id);
     mostrarProductos();
