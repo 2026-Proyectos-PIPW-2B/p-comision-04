@@ -86,10 +86,17 @@ function actualizarInterfaz() {
       }
 
       contenedorBtnIngresar.innerHTML =
-        '<span class="badge bg-' + colorInsignia + '">' +
+        '<span id="logoSesion" class="badge bg-' + colorInsignia + ' me-2" role="button" style="cursor:pointer;">' +
         sesion.rol.toUpperCase() + ": " + sesion.nombreUsuario +
         "</span>" +
-        '<button id="logoutBtn" class="btn btn-danger btn-sm ms-2">Salir</button>';
+        '<button id="logoutBtn" class="btn btn-danger btn-sm">Salir</button>';
+
+      const logoSesion = document.getElementById("logoSesion");
+      if (logoSesion !== null) {
+        logoSesion.addEventListener("click", function () {
+          location.href = "historial.html";
+        });
+      }
 
       const botonSalir = document.getElementById("logoutBtn");
       if (botonSalir !== null) {
@@ -167,6 +174,9 @@ function configurarFormularioLogin() {
     actualizarInterfaz();
     if (window.refrescarTablaProductos !== undefined) {
       window.refrescarTablaProductos();
+    }
+    if (window.refrescarHistorial !== undefined) {
+      window.refrescarHistorial();
     }
 
     let tipoDeMensaje = "success";

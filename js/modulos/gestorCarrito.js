@@ -5,6 +5,7 @@ import {mostrarMensaje, obtenerSesion} from "./gestorAuth.js";
 export {inicializarCarrito,obtenerCarrito,agregarAlCarrito,eliminarDelCarrito,actualizarCantidadDelCarrito,vaciarCarrito,calcularTotal, finalizarCompra};
 
 const CLAVE_CARRITO = "carrito";
+const CLAVE_COMPRAS = "compras";
 
 function inicializarCarrito() {
     const datos = obtenerDato(CLAVE_CARRITO);
@@ -141,6 +142,38 @@ function finalizarCompra() {
         mostrarMensaje("Solo los usuarios pueden finalizar una compra", "warning");
         return false;
     }
+
+    const fecha = new Date().toLocaleString("es-AR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+
+    const productosComprados = [];
+
+    for (let i = 0; i < carrito.length; i++) {
+        const item = carrito[i];
+
+        productosComprados.push({
+            id: item.id,
+            nombre: item.nombre,
+            cantidad: item.cantidad,
+            precio: Number(item.precio || 0)
+        });
+    }
+
+    const compra = {
+        usuario: sesion.nombreUsuario,
+        fecha: fecha,
+        productos: productosComprados,
+        total: calcularTotal()
+    };
+
+    const comprasPrevias = obtenerDato(CLAVE_COMPRAS) || [];
+    comprasPrevias.push(compra);
+    guardarDato(CLAVE_COMPRAS, comprasPrevias);
 
     vaciarCarrito();
     actualizarContadorCarrito();
