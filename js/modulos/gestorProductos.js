@@ -2,6 +2,8 @@ import { guardarDato, obtenerDato } from "./gestorBD.js";
 import {mostrarMensaje} from "./gestorAuth.js";
 import {eliminarDelCarrito} from "./gestorCarrito.js";
 
+export {inicializarProductos,listarProductos,obtenerProductoPorId,agregarProducto,eliminarProducto,editarProducto};
+
 const PRODUCTOS_KEY = "productos";
 
 const PRODUCTOS_INICIALES = [
@@ -78,8 +80,6 @@ const PRODUCTOS_INICIALES = [
         categoria: "Placas de video"
     }
 ];
-
-export {inicializarProductos,listarProductos,obtenerProductoPorId,agregarProducto,eliminarProducto,editarProducto};
 
 function inicializarProductos() {
     const productosGuardados = obtenerDato(PRODUCTOS_KEY);

@@ -1,8 +1,10 @@
-import { inicializarProductos, listarProductos, eliminarProducto, agregarProducto, obtenerProductoPorId, editarProducto } from "./modulos/gestorProductos.js";
-import { esAdministrador, actualizarInterfaz, configurarFormularioLogin } from "./modulos/gestorAuth.js";
+import {inicializarProductos, listarProductos, eliminarProducto, agregarProducto, obtenerProductoPorId, editarProducto} from "./modulos/gestorProductos.js";
+import {esAdministrador, actualizarInterfaz, configurarFormularioLogin, mostrarMensaje} from "./modulos/gestorAuth.js";
 import {agregarAlCarrito, inicializarCarrito} from "./modulos/gestorCarrito.js";
+import {inicializarCategorias, listarCategorias, agregarCategoria, obtenerNombresCategorias} from "./modulos/gestorCategorias.js";
 
 window.onload = function () {
+    inicializarCategorias();
     inicializarProductos();
     inicializarCarrito();
     actualizarInterfaz();
@@ -11,11 +13,12 @@ window.onload = function () {
     mostrarProductos();
     configurarFiltros();
     configurarAgregarProducto();
+    configurarAgregarCategoria();
 };
 
 function configurarFiltros() {
     const inputBusqueda = document.getElementById("buscarProducto");
-    const selectCategoria = document.querySelector("select");
+    const selectCategoria = document.getElementById("filtroCategoria");
 
     if (inputBusqueda !== null) {
         inputBusqueda.addEventListener("input", mostrarProductos);
@@ -24,12 +27,46 @@ function configurarFiltros() {
     if (selectCategoria !== null) {
         selectCategoria.addEventListener("change", mostrarProductos);
     }
+
+    actualizarOpcionesCategorias();
+}
+
+function actualizarOpcionesCategorias() {
+    const categorias = listarCategorias();
+    const categoriasNombres = obtenerNombresCategorias(categorias);
+
+    const selectFiltro = document.getElementById("filtroCategoria");
+    selectFiltro.innerHTML = "";
+
+    const opcionTodas = document.createElement("option");
+    opcionTodas.value = "Todas las categorías";
+    opcionTodas.textContent = "Todas las categorías";
+    selectFiltro.appendChild(opcionTodas);
+
+    categoriasNombres.forEach((nombre) => {
+        const opcion = document.createElement("option");
+        opcion.value = nombre;
+        opcion.textContent = nombre;
+        selectFiltro.appendChild(opcion);
+    });
+
+    const selectProducto = document.getElementById("nuevoCategoria");
+
+    selectProducto.innerHTML = "";
+
+    categoriasNombres.forEach((nombre) => {
+        const opcion = document.createElement("option");
+        opcion.value = nombre;
+        opcion.textContent = nombre;
+        selectProducto.appendChild(opcion);
+    });
+    
 }
 
 function obtenerProductosFiltrados() {
     const productos = listarProductos();
     const inputBusqueda = document.getElementById("buscarProducto");
-    const selectCategoria = document.querySelector("select");
+    const selectCategoria = document.getElementById("filtroCategoria");
 
     let busqueda = "";
     let categoriaFiltro = "";
@@ -244,6 +281,7 @@ function configurarAgregarProducto() {
             agregarModal.hide();
 
             formulario.reset();
+            actualizarOpcionesCategorias();
         };
 
         const archivo = imagenInput.files && imagenInput.files[0];
@@ -256,6 +294,45 @@ function configurarAgregarProducto() {
         } else {
             procesarProducto("img/240.webp");
         }
+    });
+}
+
+function configurarAgregarCategoria() {
+    const formulario = document.getElementById("agregarCategoriaForm");
+    const errorContenedor = document.getElementById("agregarCategoriaError");
+
+
+    formulario.addEventListener("submit", function (evento) {
+        evento.preventDefault();
+
+        errorContenedor.classList.add("d-none");
+        errorContenedor.textContent = "";
+
+        const campoNombre = document.getElementById("nuevaCategoriaNombre");
+        const nombreValor = campoNombre.value.trim();
+
+        if (nombreValor === "") {
+            errorContenedor.textContent = "Ingresá un nombre para la categoría.";
+            errorContenedor.classList.remove("d-none");
+            return;
+        }
+
+        const categoriaNueva = agregarCategoria(nombreValor);
+
+        if (categoriaNueva === null) {
+            errorContenedor.textContent = "Ingresá un nombre para la categoría.";
+            errorContenedor.classList.remove("d-none");
+            return;
+        }
+
+        actualizarOpcionesCategorias();
+        mostrarProductos();
+        mostrarMensaje("La categoría se agregó correctamente", "success");
+
+        const agregarModal = bootstrap.Modal.getInstance(document.getElementById("agregarCategoriaModal")) || new bootstrap.Modal(document.getElementById("agregarCategoriaModal"));
+        agregarModal.hide();
+
+        formulario.reset();
     });
 }
 

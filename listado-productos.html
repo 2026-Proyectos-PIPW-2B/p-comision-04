@@ -53,9 +53,14 @@
         </div>
 
         <div class="col-auto align-self-center d-none soloAdmin">
-            <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#agregarProductoModal">
-                <i class="bi bi-plus-circle-fill me-2"></i>Agregar producto
-            </button>
+            <div class="d-flex gap-2 flex-wrap">
+                <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#agregarProductoModal">
+                    <i class="bi bi-plus-circle-fill me-2"></i>Agregar producto
+                </button>
+                <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#agregarCategoriaModal">
+                    <i class="bi bi-tags-fill me-2"></i>Agregar categoría
+                </button>
+            </div>
         </div>
     </div>
 
@@ -64,11 +69,8 @@
             <input type="text" class="form-control" id="buscarProducto" placeholder="Buscar producto...">
         </div>
         <div class="col-md-6 mt-3 mt-md-0">
-            <select class="form-select">
+            <select id="filtroCategoria" class="form-select">
                 <option selected>Todas las categorías</option>
-                <option>Monitores</option>
-                <option>Periféricos</option>
-                <option>Placas de video</option>
             </select>
         </div>
     </div>
@@ -214,6 +216,32 @@
                     <div class="mt-4 d-flex justify-content-end gap-2">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-success">Guardar producto</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="agregarCategoriaModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content bg-dark text-light border-success">
+            <div class="modal-header border-success">
+                <h5 class="modal-title text-success">
+                    <i class="bi bi-tags-fill me-2"></i>Agregar categoría
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="agregarCategoriaError" class="alert alert-danger d-none py-2" role="alert"></div>
+                <form id="agregarCategoriaForm">
+                    <div class="mb-3">
+                        <label for="nuevaCategoriaNombre" class="form-label">Nombre de la categoría</label>
+                        <input type="text" class="form-control bg-dark text-light border-secondary" id="nuevaCategoriaNombre" required>
+                    </div>
+                    <div class="mt-4 d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">Guardar categoría</button>
                     </div>
                 </form>
             </div>

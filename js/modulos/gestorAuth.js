@@ -152,10 +152,7 @@ function configurarFormularioLogin() {
     const resultado = iniciarSesion(nombreUsuario, clave);
     
     if (resultado === "deshabilitado") {
-        mostrarMensaje(
-            "Usuario deshabilitado por la administración. Si desea acceder al sitio, contacte al soporte.",
-            "danger"
-        );
+        mostrarMensaje("Usuario deshabilitado por la administración. Si desea acceder al sitio, contacte al soporte.","danger");
         return;
     }
 
