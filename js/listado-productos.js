@@ -284,17 +284,16 @@ function configurarAgregarProducto() {
             actualizarOpcionesCategorias();
         };
 
-        const archivo = imagenInput.files && imagenInput.files[0];
-        if (archivo) {
-            const lector = new FileReader();
-            lector.onload = function(eventoArchivo) {
-                procesarProducto(eventoArchivo.target.result);
-            };
-            lector.readAsDataURL(archivo);
+        const imagenValor = imagenInput.value.trim();
+
+        if (imagenValor !== "") {
+            procesarProducto(imagenValor);
         } else {
             procesarProducto("img/240.webp");
         }
+
     });
+
 }
 
 function configurarAgregarCategoria() {
