@@ -12,6 +12,12 @@ window.onload = function () {
     mostrarProductos();
 };
 
+function obtenerInstanciaModal(idModal) {
+    const modal = document.getElementById(idModal);
+    
+    return bootstrap.Modal.getOrCreateInstance(modal);
+}
+
 function mostrarProductos() {
     const productos = listarProductos();
     const esAdmin = esAdministrador();
@@ -123,7 +129,8 @@ function abrirEditarProducto(id) {
         contenedorError.textContent = "";
     }
 
-    new bootstrap.Modal(document.getElementById("editarProductoModal")).show();
+    const modalEditar = obtenerInstanciaModal("editarProductoModal");
+        modalEditar.show();
 }
 
 window.abrirEditarProducto = abrirEditarProducto;
@@ -142,29 +149,31 @@ formularioEditarIndex.addEventListener("submit", function (evento) {
     const stockValor = Number(campoStock.value);
 
     if (precioValor < 0 || stockValor < 0) {
-            contenedorError.textContent = "Precio y stock deben ser números válidos y no negativos.";
-            contenedorError.classList.remove("d-none");
+        contenedorError.textContent = "Precio y stock deben ser números positivos.";
+        contenedorError.classList.remove("d-none");
         return;
     }
 
     editarProducto(id, { precio: precioValor, stock: stockValor });
     mostrarProductos();
 
-    new bootstrap.Modal(document.getElementById("editarProductoModal")).hide();
+    const modalEditar = obtenerInstanciaModal("editarProductoModal");
+        modalEditar.hide();
 });
-
 
 const btnEliminarIndex = document.getElementById("editarEliminarBtn");
 
-btnEliminarIndex.addEventListener("click", function () {
-    const id = Number(document.getElementById("editarId").value);
+    btnEliminarIndex.addEventListener("click", function () {
+        const id = Number(document.getElementById("editarId").value);
 
-    if (!confirm("¿Estás seguro que querés eliminar este producto?")) {
-        return;
-    }
+        if (!confirm("¿Estás seguro que querés eliminar este producto?")) {
+            return;
+        }
 
-    eliminarProducto(id);
-    mostrarProductos();
+        eliminarProducto(id);
+        mostrarProductos();
 
-    new bootstrap.Modal(document.getElementById("editarProductoModal")).hide();
-});
+        const modalEditar = obtenerInstanciaModal("editarProductoModal");
+            modalEditar.hide();
+    });
+
