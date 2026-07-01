@@ -57,7 +57,8 @@ function iniciarSesion(nombreUsuario, clave) {
     if (usuarioEncontrado === null) {
       return false;
   }}
-
+  
+  location.reload();
   guardarSesion(usuarioEncontrado);
   return usuarioEncontrado;
 }
